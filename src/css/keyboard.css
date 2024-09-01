@@ -1,0 +1,28 @@
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7%;
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+}
+/* Button styles */
+.button {
+  font-size: 3vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #3498db;
+  border-radius: 50%;
+  background-color: #3498db;
+  aspect-ratio: 1/1;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: #2980b9;
+}
+
