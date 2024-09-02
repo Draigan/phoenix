@@ -1,12 +1,14 @@
 import { Dispatch, SetStateAction } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 type Props = {
   setInput: Dispatch<SetStateAction<string>>;
   input: string;
-  currentWord: string;
   mode: 'normal' | 'practice';
 };
-const KeyboardEasy: React.FC<Props> = ({ setInput, input, currentWord, mode }) => {
+const KeyboardEasy: React.FC<Props> = ({ setInput, input, mode }) => {
 
+  const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const handleDelete = () => {
     setInput((prevValue) => prevValue.slice(0, prevValue.length - 1));
   };

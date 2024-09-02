@@ -6,23 +6,23 @@ import { increment } from '../redux/slices/pointsSlice';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useWordSlice } from '../hooks/useWordSlice';
+import useStatus from '../hooks/useStatus';
 
 export default function SpellingPractice() {
   const [input, setInput] = useState('');
-  const [currentWord, setCurrentWord] = useState('cool');
 
   const [round, setRound] = useState(0);
   const [maxRound, setMaxRound] = useState(3);
 
-  const wordData = useSelector((state: RootState) => state.words);
-  const data = useSelector((state: RootState) => state.data);
+  const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { chngToLength } = useWordSlice();
+  const { loading } = useStatus();
 
   useEffect(() => {
     chngToLength(3);
-  }, [])
+  }, [loading])
 
   useEffect(() => {
     if (input === currentWord) {
@@ -38,12 +38,12 @@ export default function SpellingPractice() {
   }, [round])
 
 
-  if (data?.status === 'succeeded') {
+  if (loading === false) {
     return (
       <div>    <Points />
-        wordData: {wordData.currentWord}
+        wordData: {currentWord}
         {input}
-        <Keyboard input={input} setInput={setInput} currentWord={currentWord} mode={'practice'} />
+        <Keyboard input={input} setInput={setInput} mode={'practice'} />
         <button onClick={() => dispatch(increment())}>Add Point</button>
         <button onClick={() => setRound(prev => prev + 1)}>Set Round</button>
       </div>

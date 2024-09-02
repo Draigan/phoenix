@@ -11,7 +11,13 @@ const store = configureStore({
   },
 });
 
-store.dispatch(fetchInitialData());
+(async () => {
+  try {
+    await store.dispatch(fetchInitialData());
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
+})();
 
 export type RootState = ReturnType<typeof store.getState>;
 export default store;

@@ -11,14 +11,14 @@ import { RootState } from '../redux/store.tsx';
 export const useWordSlice = () => {
   const dispatch = useDispatch();
   const data: any = useSelector((state: RootState) => state.data);
-  const wordsByLength = data.data.wordsByLength;
+  const wordsByLength = data.data?.wordsByLength;
   console.log(data, "DATA")
   console.log(wordsByLength, "WORDSBYLENGTH")
 
   const randomNumber = (max: number) => Math.floor(Math.random() * (max + 1));
 
   const chngToLength = (length: number) => {
-    if (length.toString() in wordsByLength) {
+    if (data.status === 'succeeded' && length.toString() in wordsByLength) {
       const wordData = wordsByLength[length.toString()].data;
       const max = randomNumber(wordData.length - 1);
       const item = wordData[max];
