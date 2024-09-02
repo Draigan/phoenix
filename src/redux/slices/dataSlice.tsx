@@ -1,43 +1,68 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-type DataState = {
-  audio: string;
-  pictures: string[];
-  word: string;
+export type DataState = {
+  data: {
+    allWords: {
+      data: {
+        audio: string;
+        pictures: string[];
+        word: string;
+      }[];
+      list: string[];
+    };
+    wordsByLength: {
+      [length: string]: {
+        data: {
+          audio: string;
+          pictures: string[];
+          word: string;
+        }[];
+        list: string[];
+      };
+    };
+  };
   status: string;
-} | null;
+};
 
+// Async thunk for fetching initial data
 export const fetchInitialData = createAsyncThunk('data/fetchInitialData', async () => {
   const response = await fetch('http://localhost:9999');
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
   const data = await response.json();
+  console.log('from server: ', data);
   return data;
 });
 
+// Initial state
+const initialState: DataState = {
+  data: {
+    allWords: {
+      data: [],
+      list: [],
+    },
+    wordsByLength: {},
+  },
+  status: 'idle',
+};
+
+// Redux slice
 const dataSlice = createSlice({
   name: 'data',
-  initialState: { audio: '', pictures: [], word: '', status: 'idle' } as DataState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchInitialData.pending, (state) => {
-        if (state) {
-          state.status = 'loading';
-        }
+        state.status = 'loading';
       })
       .addCase(fetchInitialData.fulfilled, (state, action) => {
-        return {
-          ...state = action.payload,
-          status: 'succeeded',
-        };
+        state.data = action.payload;
+        state.status = 'succeeded';
       })
       .addCase(fetchInitialData.rejected, (state, action) => {
-        if (state) {
-          state.status = 'failed';
-        }
+        state.status = 'failed';
         console.error(action.error.message);
       });
   },

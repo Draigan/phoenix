@@ -12,30 +12,32 @@ const KeyboardEasy: React.FC<Props> = ({ setInput, input, currentWord, mode }) =
   };
 
   const handleButtonClick = (letter: string) => {
-    const expectedLetter = currentWord[input.length]?.toUpperCase();
+    // In practice mode we only want to press the next letter
+    const expectedLetter = currentWord[input.length];
+    if (expectedLetter !== letter && mode === 'practice') return;
+
     playSound(letter);
-    if (letter === expectedLetter) {
-      setInput((prevValue) => `${prevValue}${letter}`);
-    }
+    setInput((prevValue) => `${prevValue}${letter}`);
   };
 
   function playSound(letter: string) {
     return new Audio(`/letters/${letter.toUpperCase()}.wav`).play();
   }
 
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
+  // Practice mode
   if (mode === 'practice') {
     return (
       <div>
         <div className="buttons-container">
           {alphabet.split("").map((letter) => {
-            const expectedLetter = currentWord[input.length]?.toUpperCase();
+            const expectedLetter = currentWord[input.length];
             if (expectedLetter !== undefined && letter === expectedLetter) {
               return (
                 <div
                   className="button"
-                  style={{ backgroundColor: "green" }}
+                  style={{ backgroundColor: "#003747" }}
                   key={letter}
                   onClick={() => handleButtonClick(letter)}
                 >
@@ -71,7 +73,6 @@ const KeyboardEasy: React.FC<Props> = ({ setInput, input, currentWord, mode }) =
       <div>
         <div className="buttons-container">
           {alphabet.split("").map((letter) => {
-            // const expectedLetter = currentWord[input.length]?.toUpperCase();
             return (
               <div
                 className="button"

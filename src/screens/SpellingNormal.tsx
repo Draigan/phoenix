@@ -16,7 +16,6 @@ export default function SpellingNormal() {
   if (data?.status === 'succeeded') {
     return (
       <div>    <Points />
-        NORMAL
         {input}
         <Keyboard input={input} mode={'normal'} setInput={setInput} currentWord={currentWord} />
         <button onClick={() => dispatch(increment())}>Add Point</button>

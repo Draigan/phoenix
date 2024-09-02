@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import SpellingPractice from '../components/SpellingPractice';
-import SpellingNormal from '../components/SpellingNormal';
+import SpellingPractice from './SpellingPractice';
+import SpellingNormal from './SpellingNormal';
 
 export default function SpellingScreen() {
   const [mode, setMode] = useState<'normal' | 'practice'>('normal');

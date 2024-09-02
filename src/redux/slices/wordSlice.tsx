@@ -1,16 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const dataSlice = createSlice({
-  name: 'data',
-  initialState: "cheese",
+type WordState = {
+  currentWord: string;
+  audio: string;
+  pictures: string[];
+}
+
+const initialState: WordState = {
+  currentWord: 'cheese',
+  audio: '',
+  pictures: [],
+};
+
+const wordSlice = createSlice({
+  name: 'words',
+  initialState,
   reducers: {
-    change: (state) => {
-      const updated = state + 1;
-      localStorage.setItem('points', updated.toString());
-      return updated;
+    setToWord: (state, action: PayloadAction<{ currentWord: string; audio: string; pictures: string[] }>) => {
+      console.log(action.payload, 'payload');
+      state.currentWord = action.payload.currentWord;
+      state.audio = action.payload.audio;
+      state.pictures = action.payload.pictures;
     },
   },
 });
 
-export const { change } = dataSlice.actions;
-export default dataSlice.reducer;
+export const { setToWord } = wordSlice.actions;
+export default wordSlice.reducer;
