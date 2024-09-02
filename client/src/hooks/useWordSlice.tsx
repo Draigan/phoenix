@@ -12,8 +12,6 @@ export const useWordSlice = () => {
   const dispatch = useDispatch();
   const data: any = useSelector((state: RootState) => state.data);
   const wordsByLength = data.data?.wordsByLength;
-  console.log(data, "DATA")
-  console.log(wordsByLength, "WORDSBYLENGTH")
 
   const randomNumber = (max: number) => Math.floor(Math.random() * (max + 1));
 

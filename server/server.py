@@ -1,74 +1,88 @@
+import time
 from flask import Flask, jsonify
 from flask_cors import CORS
 import requests
 import pprint
+import data
 
 
-items = "dog cat at bunny rose blast".split(" ")
+categories = data.categories
 key =  ""
 with open("./api", "r") as file:
     key = file.read().strip()
 
     
+# categories = {
+#     'season': ['fall'],
+#     'animals': ['dog','cat','animooo', 'chicken'],
+#     'plants': ['tree','rose','plantoodooo', 'fern'],
+#               }
 
+allWords = []
 allWordsData = []
-endpointData= {'allWords': {'list': items, 'data': allWordsData,},'wordsByLength': {}}
+endpointData= {'allWords': {'list': allWords, 'data': allWordsData,},'wordsByLength': {} }
 
-
-for item in items:
+# Iterate through every word in every category
+for category, wordList in categories.items():
     try:
+        for word in wordList:
+            # Now we have access to the word and the category it belongs to
+            # It's time to make some api calls for each word
+            finalImages = []
+            finalAudioURL = None
+            audioURL = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+            audioResponse = requests.get(audioURL)
+            if audioResponse.status_code == 200:
+                definitions = audioResponse.json()
+                # We have our json data its time to go deeper. 
+                # Each response has multiple definitions and only some of the definitions
+                # have audio so we must iterate through all of this and pick the us, uk, au 
+                # audio in that order, basically we are just scanning all the possible audio 
+                # locations in the api. Lots of nesting...
+                for definition in definitions:
+                    for phonetic in definition['phonetics']:
+                        if any(audio != "" for audio in phonetic):
+                            if phonetic["audio"] == "au.mp3":
+                                finalAudioURL = phonetic["audio"]
 
-        # Images and audio for object to be pushed to endpointData
-        finalImages = []
-        finalAudioURL = None
-        # Request audio 
-        # We are doing audio first because its possible to not have any
-        # In which case we have nothing to add continue
-        audioURL = f"https://api.dictionaryapi.dev/api/v2/entries/en/{item}"
-        audioResponse = requests.get(audioURL)
+                            if phonetic["audio"][-6:] == "uk.mp3":
+                                finalAudioURL = phonetic["audio"]
 
-        if audioResponse.status_code == 200:
-            audioData = audioResponse.json()[0]['phonetics']
-            # Checking to make sure there is at least 1 audio file
-            if any(audio != "" for audio in audioData):
-                # Setting the audio file to the USA version if available
-                for url in audioData:
-                    # If the url is not empty set finalAudio to it
-                    # This is just to ensure we have some audio incase
-                    # there is no US version, but if we do find a us version
-                    # set finalAudioURL to that and break out of the loop
-                    if url["audio"] != "":
-                        finalAudioURL = url["audio"]
-                    # We prefer uk over aus 
-                    if url["audio"][-6:] == "uk.mp3":
-                        # print("found uk audio")
-                        finalAudioURL = url["audio"]
-                    # We found us so we have our audio
-                    if url["audio"][-6:] == "us.mp3":
-                        # print("found us audio")
-                        finalAudioURL = url["audio"]
-                        break
+                            if phonetic["audio"][-6:] == "us.mp3":
+                                finalAudioURL = phonetic["audio"]
+                                break
 
-        # If there are no valid audio urls, we need to skip to the next word
-        if not finalAudioURL:
-            print(f"No audio found for {item}")
-            continue
+            # Gaurd clause before append for audio
+            if finalAudioURL:
+                print(finalAudioURL, word)
 
-        
-        # Request pictures
-        imgURL =f"https://pixabay.com/api/?key={key}&q={item}&image_type=photo"
-        imageResponse = requests.get(imgURL)
-        if imageResponse.status_code == 200:
-            imageData = imageResponse.json()["hits"]
-            if len(imageData) >= 8:
-                finalImages = [img["webformatURL"] for img in imageData[:8]]
+            else:
+                print(f"No audio found for {word}")
+                continue
 
-        if len(finalImages) < 8:
-            print(f"Not enough images found for {item}")
-            continue
+#       Gaurd clause before append for pictures
+            imgURL =f"https://pixabay.com/api/?key={key}&q={word}&image_type=photo"
+            imageResponse = requests.get(imgURL)
+            if imageResponse.status_code == 200:
+                imageData = imageResponse.json()["hits"]
+                if len(imageData) >= 8:
+                    finalImages = [img["webformatURL"] for img in imageData[:8]]
 
+            if len(finalImages) < 8:
+                print(f"Not enough images found for {word}")
+                continue
 
-        allWordsData.append({"word": f"{item}", "audio": finalAudioURL, "pictures": finalImages})
+            #Append to the allwords category
+            allWordsData.append({"word": word, "audio": finalAudioURL, "pictures": finalImages})
+            allWords.append(word)
+
+            #Create a new category if the category doesn't exist and append to it
+            if category not in endpointData:
+                print('creatingg new category: ', f"{category}")
+                endpointData[category] = {'list': [], 'data': []}
+            endpointData[category]['data'].append({'word': word,'audio': finalAudioURL, 'pictures': finalImages })
+            endpointData[category]['list'].append(word)
+            time.sleep(1)
 
     except requests.exceptions.HTTPError as errh:
         print("HTTP Error:", errh)
@@ -79,6 +93,8 @@ for item in items:
     except requests.exceptions.RequestException as err:
         print("An error occurred:", err)
 
+
+# Here we filter the different words by length and add it to the endpoint
 for item in allWordsData:
     length = len(item['word'])
 
@@ -88,15 +104,7 @@ for item in allWordsData:
     endpointData['wordsByLength'][str(length)]['data'].append(item)
     endpointData['wordsByLength'][str(length)]['list'].append(item['word'])
 
-        
-    # wordsByLength[length]
-    # print(item['word'])
-
-    
-
-
-
-pprint.pprint(endpointData)
+# pprint.pprint(endpointData)
 app = Flask(__name__)
 CORS(app)
 @app.route("/")
@@ -104,6 +112,6 @@ def index():
     return endpointData
 
 app.run(host="0.0.0.0", port=9999)
-
-
-
+#
+#
+#

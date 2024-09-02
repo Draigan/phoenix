@@ -1,24 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+type DataItem = {
+  data: {
+    audio: string;
+    pictures: string[];
+    word: string;
+  }[];
+  list: string[];
+}
 export type DataState = {
   data: {
-    allWords: {
+    [key: string]: DataItem;
+  }
+  wordsByLength: {
+    [length: string]: {
       data: {
         audio: string;
         pictures: string[];
         word: string;
       }[];
       list: string[];
-    };
-    wordsByLength: {
-      [length: string]: {
-        data: {
-          audio: string;
-          pictures: string[];
-          word: string;
-        }[];
-        list: string[];
-      };
     };
   };
   status: string;
@@ -35,15 +36,14 @@ export const fetchInitialData = createAsyncThunk('data/fetchInitialData', async 
   return data;
 });
 
-// Initial state
 const initialState: DataState = {
   data: {
     allWords: {
       data: [],
       list: [],
     },
-    wordsByLength: {},
   },
+  wordsByLength: {},
   status: 'idle',
 };
 

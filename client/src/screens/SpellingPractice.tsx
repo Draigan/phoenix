@@ -12,16 +12,17 @@ export default function SpellingPractice() {
   const [input, setInput] = useState('');
 
   const [round, setRound] = useState(0);
-  const [maxRound, setMaxRound] = useState(3);
+  const [maxRound] = useState(3);
 
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const settings = useSelector((state: RootState) => state.settings);
   const { chngToLength } = useWordSlice();
   const { loading } = useStatus();
 
   useEffect(() => {
-    chngToLength(3);
+    chngToLength(settings.maxLetters);
   }, [loading])
 
   useEffect(() => {

@@ -11,7 +11,7 @@ export default function SpellingNormal() {
 
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data);
-  console.log(data);
+  console.log(data.data.animals);
 
   if (data?.status === 'succeeded') {
     return (

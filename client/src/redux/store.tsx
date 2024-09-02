@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import pointsReducer from './slices/pointsSlice';
 import dataReducer, { fetchInitialData } from './slices/dataSlice';
 import wordsReducer from './slices/wordSlice';
+import settingsReducer from './slices/settingSlice';
 
 const store = configureStore({
   reducer: {
     points: pointsReducer,
     data: dataReducer,
     words: wordsReducer,
+    settings: settingsReducer,
   },
 });
 
