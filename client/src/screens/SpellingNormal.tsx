@@ -23,5 +23,6 @@ export default function SpellingNormal() {
   // } else {
   //   return 'Loading';
   // }
+  return "cool";
 }
 
