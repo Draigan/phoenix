@@ -1,17 +1,18 @@
 import React from 'react';
 
-interface DropdownProps {
+type DropdownProps = {
+  value: string;
   label: string;
   options: string[];
   onChange: (value: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, options, onChange }) => {
+
+const Dropdown: React.FC<DropdownProps> = ({ value, label, options, onChange }) => {
   return (
     <div>
       <label>{label}:</label>
-      <select onChange={(e) => onChange(e.target.value)}>
-        <option value="">Select...</option>
+      <select value={value} onChange={(e) => onChange(e.target.value)}>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}

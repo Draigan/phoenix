@@ -1,16 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type WordCategory = 'all' | 'animals' | 'colours';
 
 type SettingsState = {
   maxLetters: number;
-  wordCategory: WordCategory;
+  wordCategory: string;
 }
 
 
 const initialState: SettingsState = {
   maxLetters: 3,
-  wordCategory: 'all',
+  wordCategory: 'allWords',
 };
 
 const settingsSlice = createSlice({
@@ -20,11 +19,11 @@ const settingsSlice = createSlice({
     setMaxLetters: (state, action: PayloadAction<{ maxLetters: number }>) => {
       state.maxLetters = action.payload.maxLetters;
     },
-    setWordCategory: (state, action: PayloadAction<{ wordCategory: WordCategory }>) => {
+    setWordCategory: (state, action: PayloadAction<{ wordCategory: string }>) => {
       state.wordCategory = action.payload.wordCategory;
     },
   },
 });
 
-export const { setMaxLetters } = settingsSlice.actions;
+export const { setMaxLetters, setWordCategory } = settingsSlice.actions;
 export default settingsSlice.reducer;

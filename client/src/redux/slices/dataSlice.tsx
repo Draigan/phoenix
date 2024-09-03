@@ -47,7 +47,6 @@ const initialState: DataState = {
   status: 'idle',
 };
 
-// Redux slice
 const dataSlice = createSlice({
   name: 'data',
   initialState,

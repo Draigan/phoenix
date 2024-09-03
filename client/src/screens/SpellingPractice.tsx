@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { increment } from '../redux/slices/pointsSlice';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { useWordSlice } from '../hooks/useWordSlice';
+import { useWordSlice } from '../hooks/useWord';
 import useStatus from '../hooks/useStatus';
+import ImageGrid from '../components/ImageGrid';
 
 export default function SpellingPractice() {
   const [input, setInput] = useState('');
@@ -17,12 +18,11 @@ export default function SpellingPractice() {
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const settings = useSelector((state: RootState) => state.settings);
-  const { chngToLength } = useWordSlice();
+  const { chngWord } = useWordSlice();
   const { loading } = useStatus();
 
   useEffect(() => {
-    chngToLength(settings.maxLetters);
+    chngWord();
   }, [loading])
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function SpellingPractice() {
   if (loading === false) {
     return (
       <div>    <Points />
+        <ImageGrid />
         wordData: {currentWord}
         {input}
         <Keyboard input={input} setInput={setInput} mode={'practice'} />
