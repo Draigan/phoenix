@@ -11,7 +11,9 @@ export default function App() {
   }, [])
 
   return (
-    <ReactRouter />
+    <>
+      <ReactRouter />
+    </>
   )
 }
 

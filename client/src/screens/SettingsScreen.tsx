@@ -5,12 +5,14 @@ import { RootState } from "../redux/store";
 import Dropdown from "../components/Dropdown";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useWordSlice from "../hooks/useWord";
 
 export default function SettingsScreen() {
   const dispatch = useDispatch();
   const settings = useSelector((state: RootState) => state.settings);
   const data = useSelector((state: RootState) => state.data).data;
   const [categories, setCategories] = useState<string[]>([]);
+  const { chngWord } = useWordSlice();
 
   useEffect(() => {
     const newCategories: string[] = Object.keys(data).map(key => String(key));
@@ -19,6 +21,7 @@ export default function SettingsScreen() {
 
   function handleChangeMaxWordLength(e: number) {
     dispatch(setMaxLetters({ maxLetters: e }));
+    chngWord();
   }
 
   function handleWordCatChange(e: string) {

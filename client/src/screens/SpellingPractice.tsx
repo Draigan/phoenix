@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import PracticeDisplay from '../components/PracticeDisplay';
 import AudioIcon from '../components/AudioIcon';
 import NormalDisplay from '../components/NormalDisplay';
+import LongPressButton from '../components/LongPressButton';
 
 export default function SpellingWord() {
   const [input, setInput] = useState('');
@@ -35,6 +36,7 @@ export default function SpellingWord() {
 
   return (
     <div className='spelling-practice'>
+      <LongPressButton />
       <Points />
       <AudioIcon />
       <div className='displays'>
