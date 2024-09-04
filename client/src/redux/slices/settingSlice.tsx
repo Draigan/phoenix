@@ -9,7 +9,7 @@ type SettingsState = {
 
 const initialState: SettingsState = {
   maxLetters: 3,
-  wordCategory: 'allWords',
+  wordCategory: 'wordsByLength',
 };
 
 const settingsSlice = createSlice({

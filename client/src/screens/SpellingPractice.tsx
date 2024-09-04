@@ -8,16 +8,17 @@ import PracticeDisplay from '../components/PracticeDisplay';
 import AudioIcon from '../components/AudioIcon';
 import NormalDisplay from '../components/NormalDisplay';
 import LongPressButton from '../components/LongPressButton';
-
+import useWordSlice from '../hooks/useWord';
 export default function SpellingWord() {
   const [input, setInput] = useState('');
 
-  const [maxRound] = useState(6);
+  const [maxRound] = useState(3);
   const round = useRef(0)
 
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   // const dispatch = useDispatch();
+  const { chngWord } = useWordSlice();
 
   useEffect(() => {
     if (input === currentWord) {
@@ -28,10 +29,15 @@ export default function SpellingWord() {
   }, [input])
 
   useEffect(() => {
+    if (round.current == 0) {
+      chngWord();
+    }
     if (round.current >= maxRound) {
       navigate('/spellingnormal');
     }
   }, [round.current]);
+
+
 
 
   return (
