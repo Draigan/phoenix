@@ -14,7 +14,8 @@ export function spellOutWord(word: string, delay: number, callback: any, audio: 
   const finalDuration = midDuration + animationAtEndDuration;
 
   setTimeout(() => {
-    word.split('').forEach((letter, index) => {
+    word.split('').forEach((_, index) => {
+      _;
       setTimeout(() => {
         if (callback) {
           callback(index);

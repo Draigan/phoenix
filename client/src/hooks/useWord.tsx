@@ -35,3 +35,4 @@ export const useWordSlice = () => {
   return { chngWord };
 };
 
+export default useWordSlice;

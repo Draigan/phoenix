@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Keyboard from '../components/Keyboard'
 import Points from '../components/Points';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { useWordSlice } from '../hooks/useWord';
-import useLoading from '../hooks/useLoading';
 import PracticeDisplay from '../components/PracticeDisplay';
 import AudioIcon from '../components/AudioIcon';
 import NormalDisplay from '../components/NormalDisplay';
@@ -13,31 +11,26 @@ import NormalDisplay from '../components/NormalDisplay';
 export default function SpellingWord() {
   const [input, setInput] = useState('');
 
-  const [round, setRound] = useState(0);
-  const [maxRound] = useState(3);
+  const [maxRound] = useState(6);
+  const round = useRef(0)
 
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const { chngWord } = useWordSlice();
-  const loading = useLoading();
-
-  useEffect(() => {
-    chngWord();
-  }, [loading])
 
   useEffect(() => {
     if (input === currentWord) {
       setInput('');
-      setRound(prev => prev + 1)
+      round.current = round.current + 1;
+      console.log(round.current)
     }
   }, [input])
 
   useEffect(() => {
-    if (round >= maxRound) {
+    if (round.current >= maxRound) {
       navigate('/spellingnormal');
     }
-  }, [round]);
+  }, [round.current]);
 
 
   return (

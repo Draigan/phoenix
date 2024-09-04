@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const points = localStorage.getItem('points');
 if (points === null) {
   localStorage.setItem('points', '0');
-
 }
 
 const pointsSlice = createSlice({

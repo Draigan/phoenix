@@ -1,13 +1,17 @@
-import './App.css'
+import { useEffect } from 'react';
+import ReactRouter from './ReactRouter'
+import useWord from './hooks/useWord.tsx'
 
-function App() {
+export default function App() {
+
+  // Initialize our word with data in the redux  reducer
+  const { chngWord } = useWord();
+  useEffect(() => {
+    chngWord();
+  }, [])
+
   return (
-    <div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <ReactRouter />
   )
 }
 
-export default App

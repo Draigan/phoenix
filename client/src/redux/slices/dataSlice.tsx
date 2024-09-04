@@ -27,7 +27,7 @@ export type DataState = {
 
 // Async thunk for fetching initial data
 export const fetchInitialData = createAsyncThunk('data/fetchInitialData', async () => {
-  const response = await fetch('http://localhost:9999');
+  const response = await fetch('https://ec2.draigan.com/phoenix');
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }

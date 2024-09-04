@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../redux/store";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 export default function BackButton() {
-  const word = useSelector((state: RootState) => state.words);
+  // const word = useSelector((state: RootState) => state.words);
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   function handleClickBack() {

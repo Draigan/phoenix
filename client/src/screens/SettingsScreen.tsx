@@ -12,7 +12,6 @@ export default function SettingsScreen() {
   const data = useSelector((state: RootState) => state.data).data;
   const [categories, setCategories] = useState<string[]>([]);
 
-
   useEffect(() => {
     const newCategories: string[] = Object.keys(data).map(key => String(key));
     setCategories(newCategories);
