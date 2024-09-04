@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import Keyboard from '../components/Keyboard'
 import Points from '../components/Points';
-import { useDispatch, useSelector } from 'react-redux';
-import { increment } from '../redux/slices/pointsSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useWordSlice } from '../hooks/useWord';
-import useStatus from '../hooks/useStatus';
-import ImageGrid from '../components/ImageGrid';
+import useLoading from '../hooks/useLoading';
+import PracticeDisplay from '../components/PracticeDisplay';
+import AudioIcon from '../components/AudioIcon';
+import NormalDisplay from '../components/NormalDisplay';
 
-export default function SpellingPractice() {
+export default function SpellingWord() {
   const [input, setInput] = useState('');
 
   const [round, setRound] = useState(0);
@@ -17,9 +18,9 @@ export default function SpellingPractice() {
 
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { chngWord } = useWordSlice();
-  const { loading } = useStatus();
+  const loading = useLoading();
 
   useEffect(() => {
     chngWord();
@@ -36,22 +37,19 @@ export default function SpellingPractice() {
     if (round >= maxRound) {
       navigate('/spellingnormal');
     }
-  }, [round])
+  }, [round]);
 
 
-  if (loading === false) {
-    return (
-      <div>    <Points />
-        <ImageGrid />
-        wordData: {currentWord}
-        {input}
-        <Keyboard input={input} setInput={setInput} mode={'practice'} />
-        <button onClick={() => dispatch(increment())}>Add Point</button>
-        <button onClick={() => setRound(prev => prev + 1)}>Set Round</button>
+  return (
+    <div className='spelling-practice'>
+      <Points />
+      <AudioIcon />
+      <div className='displays'>
+        < NormalDisplay input={input} />
+        < PracticeDisplay />
       </div>
-    )
-  } else {
-    return 'Loading';
-  }
+      <Keyboard input={input} setInput={setInput} mode={'practice'} />
+    </div>
+  );
 }
 

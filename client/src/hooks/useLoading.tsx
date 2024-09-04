@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from '../redux/store';
 
-
-export default function useStatus() {
+export default function useLoading() {
 
   const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data);
@@ -12,6 +11,6 @@ export default function useStatus() {
       setLoading(false)
     }
   }, [data])
-  return { loading };
+  return loading;
 
 }

@@ -1,0 +1,9 @@
+.points{
+  position: fixed; /* Fixes the position relative to the viewport */
+  top: 10px; /* Adjust the distance from the top of the viewport */
+  left: 10px; /* Adjust the distance from the left of the viewport */
+  padding: 10px; /* Optional: Add some padding */
+  border-radius: 5px; /* Optional: Round the corners */
+  font-weight: bold;
+  z-index: 1000; /* Ensure it appears above other content */
+}

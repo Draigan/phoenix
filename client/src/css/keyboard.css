@@ -1,31 +1,75 @@
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 7%;
-  width: 70vw;
+  gap: 8px; /* Reduced gap for a more compact layout */
+  width: 100%; /* Adjust width to fit the parent container */
+  max-width: 600px; /* Limit maximum width */
   justify-content: center;
   align-items: center;
+  padding: 10px; /* Add padding around the container */
 }
-/* Button styles */
+
 .button {
-  font-size: 3vmin;
+  font-size: 1rem; /* Adjusted font size for better readability */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
+  border: 2px solid gray;
   border-radius: 50%;
   background-color: #00564d;
   aspect-ratio: 1/1;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Added transform transition for better feedback */
   user-select: none;
-
+  width: 50px; /* Fixed width */
+  height: 50px; /* Fixed height */
 }
 
 .button:hover {
   background-color: #00897b;
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.button:active {
+  background-color: #004d40; /* Darker color for active state */
+  transform: scale(0.95); /* Slightly decrease size on click */
+}
+
+.button:focus {
+  outline: 3px solid #00897b; /* Focus outline for accessibility */
+  outline-offset: 2px;
 }
 
 
+.button-delete {
+  font-size: 1rem; /* Adjusted font size for better readability */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid gray;
+  border-radius: 50%;
+  background-color: #00564d;
+  aspect-ratio: 1/1;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Added transform transition for better feedback */
+  user-select: none;
+  width: 50px; /* Fixed width */
+  height: 50px; /* Fixed height */
+}
 
+.button-delete:hover {
+  background-color: #00897b;
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.button-delete:active {
+  background-color: #004d40; /* Darker color for active state */
+  transform: scale(0.95); /* Slightly decrease size on click */
+}
+
+.button-delete:focus {
+  outline: 3px solid #00897b; /* Focus outline for accessibility */
+  outline-offset: 2px;
+}

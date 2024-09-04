@@ -1,12 +1,17 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import React from 'react';
 
-export default function ImageGrid() {
+type Props = {
+  size: number;
+}
+
+const ImageGrid: React.FC<Props> = ({ size }) => {
   const word = useSelector((state: RootState) => state.words);
   return (
     <div className='image-grid'>
       {word.pictures.map((item: string, index: number) => {
-        if (index < 4) {
+        if (index < size) {
           return (
             <div key={index} className='image-item'>
               <img src={item} />
@@ -17,4 +22,6 @@ export default function ImageGrid() {
     </div>
   );
 }
+
+export default ImageGrid;
 

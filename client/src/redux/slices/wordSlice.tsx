@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type WordState = {
+export type WordState = {
   currentWord: string;
   audio: string;
   pictures: string[];

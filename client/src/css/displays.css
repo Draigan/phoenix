@@ -1,0 +1,43 @@
+.displays {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.practice-display {
+  background: transparent;
+  font-size: 1.3em;
+  color: darkgrey;
+  border: none;
+  user-select: none;
+  cursor: default; /* Sets the cursor to default (not a pointer) */
+  /* Optionally: remove any box-shadow or outline if they are present */
+  box-shadow: none;
+  outline: none;
+  letter-spacing: 6px;
+  text-align:center;
+}
+
+.normal-display {
+  text-align:center;
+  background: transparent;
+  font-size: 2em;
+  height: 2em;
+  color: white;
+  padding-top: 10px;
+  border: none;
+  user-select: none;
+  pointer-events: none; /* Disables any interactions including hover effects */
+  cursor: default; /* Sets the cursor to default (not a pointer) */
+  /* Optionally: remove any box-shadow or outline if they are present */
+  box-shadow: none;
+  outline: none;
+  letter-spacing: 1px;
+}
+
+.highlight {
+  color: green; /* Change to whatever color you prefer */
+  font-weight: bold; /* Optional: Make it bold */
+  transition: color 0.3s ease-in-out; /* Optional: Smooth transition effect */
+}
+

@@ -4,6 +4,7 @@ import { setMaxLetters, setWordCategory } from "../redux/slices/settingSlice";
 import { RootState } from "../redux/store";
 import Dropdown from "../components/Dropdown";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SettingsScreen() {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ export default function SettingsScreen() {
 
   return (
     <div>
+      <Link to="/">BACK</Link>
+
       <Dropdown value={settings.wordCategory} label={'Word Category'} options={categories} onChange={handleWordCatChange} />
       {settings.wordCategory === 'wordsByLength' &&
         (<Slider max={7} min={2} step={1} initialValue={settings.maxLetters} onChange={handleChangeMaxWordLength} />)}
