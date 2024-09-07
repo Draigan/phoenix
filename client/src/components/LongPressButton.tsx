@@ -35,7 +35,7 @@ const LongPressButton = () => {
       style={{
         position: 'fixed',
         bottom: '10px',
-        left: '10px',
+        left: '5px',
         backgroundColor: 'transparent',
         color: 'white',
         padding: '10px',
@@ -44,7 +44,7 @@ const LongPressButton = () => {
         cursor: 'pointer',
       }}
     >
-      S
+      .
     </button>
   );
 };

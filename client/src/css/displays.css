@@ -9,7 +9,6 @@
   font-size: 1.3em;
   color: darkgrey;
   border: none;
-  user-select: none;
   cursor: default; /* Sets the cursor to default (not a pointer) */
   /* Optionally: remove any box-shadow or outline if they are present */
   box-shadow: none;
