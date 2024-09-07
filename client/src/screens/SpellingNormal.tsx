@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { useWordSlice } from '../hooks/useWord';
-// import useStatus from '../hooks/useLoading';
+import useWordSlice from '../hooks/useWord';
 import NormalDisplay from '../components/NormalDisplay';
 import AudioIcon from '../components/AudioIcon';
 import BackButton from '../components/BackButton';
@@ -19,12 +18,17 @@ export default function SpellingNormal() {
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { chngWord } = useWordSlice();
 
   useEffect(() => {
     if (input === currentWord) {
-      setInput('');
-      dispatch(increment());
-      navigate('/')
+      setTimeout(() => {
+        setInput('');
+        dispatch(increment());
+        chngWord();
+        navigate('/')
+      }, 2000)
+
     }
   }, [input])
 

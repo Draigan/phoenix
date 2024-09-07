@@ -1,6 +1,5 @@
-// Plays audio of all the letters
-// And takes a callback which at least one case lights up the letters in the practice display
-export function spellOutWord(word: string, delay: number, callback: any, audio: string) {
+// Plays audio of all the letters And takes a callback
+export function spellOutWord(word: string, delay: number, audio: string, callback: any) {
   word.split('').forEach((letter, index) => {
     setTimeout(() => {
       if (callback) {

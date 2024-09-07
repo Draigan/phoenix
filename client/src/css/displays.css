@@ -41,3 +41,23 @@
   transition: color 0.3s ease-in-out; /* Optional: Smooth transition effect */
 }
 
+@keyframes flashRed {
+  0% { color: white; }
+  50% { color: red; }
+  100% { color: white; }
+}
+
+.flashing-red {
+  animation: flashRed 2s infinite;
+}
+
+@keyframes flashGreen {
+  0% { color: white; }
+  50% { color: green; }
+  100% { color: white; }
+}
+
+.flashing-green {
+  animation: flashGreen 2s infinite;
+}
+

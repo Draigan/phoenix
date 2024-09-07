@@ -1,21 +1,23 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import usePlaySound from '../hooks/usePlaySound';
 
 export default function Points() {
   const points = useSelector((state: RootState) => state.points);
+  const { playSound } = usePlaySound();
 
-  function playAudio(number: number) {
+  function getAudioUrl(number: number): string {
     if (number === 0) {
-      return new Audio(`../numbers/en_num_0.mp3`).play();
+      return `../numbers/en_num_0.mp3`;
     }
     if (number < 10) {
-      return new Audio(`../numbers/en_num_0${number}.mp3`).play();
+      return `../numbers/en_num_0${number}.mp3`;
     }
-    return new Audio(`../numbers/en_num_${number}.mp3`).play();
+    return `../numbers/en_num_${number}.mp3`;
   }
 
   function handleClick() {
-    playAudio(points);
+    playSound(getAudioUrl(points));
   }
 
   return (

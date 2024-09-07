@@ -1,3 +1,4 @@
+
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "../components/Slider";
 import { setMaxLetters, setWordCategory } from "../redux/slices/settingSlice";

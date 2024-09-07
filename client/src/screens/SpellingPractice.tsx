@@ -8,33 +8,42 @@ import PracticeDisplay from '../components/PracticeDisplay';
 import AudioIcon from '../components/AudioIcon';
 import NormalDisplay from '../components/NormalDisplay';
 import LongPressButton from '../components/LongPressButton';
-import useWordSlice from '../hooks/useWord';
+import usePlaySound from '../hooks/usePlaySound';
+
 export default function SpellingWord() {
+
   const [input, setInput] = useState('');
+  const maxRound = 2;
+  const round = useRef(0);
 
-  const [maxRound] = useState(3);
-  const round = useRef(0)
-
-  const currentWord = useSelector((state: RootState) => state.words).currentWord;
+  const words = useSelector((state: RootState) => state.words);
+  const currentWord = words.currentWord;
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  const { chngWord } = useWordSlice();
+  const { playSound, cleanUpSound } = usePlaySound();
+
 
   useEffect(() => {
     if (input === currentWord) {
-      setInput('');
-      round.current = round.current + 1;
-      console.log(round.current)
+      setTimeout(() => {
+        setInput('');
+        round.current = round.current + 1;
+        console.log(round.current)
+      }, 2000);
+
     }
   }, [input])
 
   useEffect(() => {
-    if (round.current == 0) {
-      chngWord();
-    }
     if (round.current >= maxRound) {
       navigate('/spellingnormal');
     }
+
+    if (round.current === 0) {
+      playSound(words.audio);
+    }
+
+    return () => cleanUpSound();
+
   }, [round.current]);
 
 
@@ -49,7 +58,7 @@ export default function SpellingWord() {
         < NormalDisplay input={input} />
         < PracticeDisplay />
       </div>
-      <Keyboard input={input} setInput={setInput} mode={'practice'} />
+      <Keyboard input={input} setInput={setInput} mode={'normal'} />
     </div>
   );
 }

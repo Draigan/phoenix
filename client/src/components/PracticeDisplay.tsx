@@ -11,7 +11,7 @@ const PracticeDisplay = () => {
   const [clickable, setClickable] = useState(true);
   function handleOnClick() {
     if (!clickable) return;
-    const animationDuration = spellOutWord(word, 1000, setCurrentIndex, words.audio);
+    const animationDuration = spellOutWord(word, 1000, words.audio, setCurrentIndex);
     setClickable(false);
     setTimeout(() => {
       setClickable(true);

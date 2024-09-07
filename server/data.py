@@ -1,3 +1,4 @@
+
 # 1. Colors
 colours = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "white"]
 
