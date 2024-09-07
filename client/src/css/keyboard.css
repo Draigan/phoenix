@@ -1,16 +1,16 @@
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px; /* Reduced gap for a more compact layout */
-  width: 100%; /* Adjust width to fit the parent container */
-  max-width: 600px; /* Limit maximum width */
+  gap: 8px;
+  width: 100%;
+  max-width: 600px;
   justify-content: center;
   align-items: center;
-  padding: 10px; /* Add padding around the container */
+  padding: 10px;
 }
 
 .button {
-  font-size: 1rem; /* Adjusted font size for better readability */
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,16 +20,14 @@
   aspect-ratio: 1/1;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease; /* Added transform transition for better feedback */
+  transition: background-color 0.3s ease, transform 0.1s ease;
   user-select: none;
-  width: 50px; /* Fixed width */
-  height: 50px; /* Fixed height */
+  width: 50px;
+  height: 50px;
 }
-
-
 
 .button-delete {
-  font-size: 1rem; /* Adjusted font size for better readability */
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,14 +37,22 @@
   aspect-ratio: 1/1;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease; /* Added transform transition for better feedback */
+  transition: background-color 0.3s ease, transform 0.1s ease;
   user-select: none;
-  width: 50px; /* Fixed width */
-  height: 50px; /* Fixed height */
+  width: 50px;
+  height: 50px;
 }
 
-.button-delete:hover {
-  background-color: #00897b;
-  transform: scale(1.05); /* Slightly increase size on hover */
+
+.button:focus, .button:active, .button-delete:focus, .button-delete:active {
+  outline: none;
+  box-shadow: none;
 }
 
+.button, .button-delete {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:active, .button-delete:active {
+  background-color: inherit;
+}
