@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import ReactRouter from './ReactRouter'
 import useWord from './hooks/useWord.tsx'
+// import { useSelector } from 'react-redux';
+// import { RootState } from './redux/store.tsx';
 
 export default function App() {
 
@@ -10,6 +12,10 @@ export default function App() {
     chngWord();
   }, [])
 
+  // const points = useSelector((state: RootState) => state.points);
+
+  // useEffect(() => {
+  // }, [points])
   return (
     <>
       <ReactRouter />

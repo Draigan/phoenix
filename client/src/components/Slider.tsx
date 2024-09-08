@@ -28,7 +28,7 @@ const Slider: React.FC<Props> = ({ min, max, step, initialValue, onChange }) => 
         onChange={handleChange}
         style={{ width: '100%' }}
       />
-      <div>Max Word Length: {value}</div>
+      <div>Word Length: {value}</div>
     </div>
   );
 };

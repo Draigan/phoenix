@@ -15,8 +15,12 @@ const pointsSlice = createSlice({
       localStorage.setItem('points', updated.toString());
       return updated;
     },
+    reset: () => {
+      localStorage.setItem('points', '0');
+      return 0;
+    },
   },
 });
 
-export const { increment } = pointsSlice.actions;
+export const { increment, reset } = pointsSlice.actions;
 export default pointsSlice.reducer;

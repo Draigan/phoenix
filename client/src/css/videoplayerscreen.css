@@ -1,0 +1,13 @@
+.videoplayerscreen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.videoplayerscreen-overlay {
+  position: fixed; 
+  height: 100%; 
+  width: 100%; 
+  background: transparent;
+  z-index: 9999; 
+}
