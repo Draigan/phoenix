@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,25 +10,27 @@ type Props = {
 const VideoPlayerScreen: React.FC<Props> = ({ }) => {
 
   const playerRef = useRef<ReactPlayer>(null);
-  const [playing, setPlaying] = useState(true);
+  // const [playing, setPlaying] = useState(true);
   const navigate = useNavigate();
   const embedUrl = useSelector((state: RootState) => state.settings).rewardUrl;
 
-  function pause() {
-    setPlaying(prev => !prev);
-  }
+  // function pause() {
+  //   setPlaying(prev => !prev);
+  // }
 
-  //<div className="videoplayerscreen-overlay" onTouchEnd={pause} onClick={pause}></div>
   return (
     <div className="videoplayerscreen">
-      <button onTouchEnd={pause} onClick={pause}>test</button>
+      <div className="overlay-top"></div>
+      <div className="overlay-bottom"></div>
+      <div className="overlay-right"></div>
+      <div className="overlay-left"></div>
       <ReactPlayer
         url={embedUrl}
         className='react-player'
         width='100%'
         height='100%'
-        playing={true}
-        muted={playing}
+        playing={false}
+        muted={false}
         ref={playerRef}
         onEnded={() => navigate('/')}
       />
