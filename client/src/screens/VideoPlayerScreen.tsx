@@ -10,7 +10,7 @@ type Props = {
 const VideoPlayerScreen: React.FC<Props> = ({ }) => {
 
   const playerRef = useRef<ReactPlayer>(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const navigate = useNavigate();
   const embedUrl = useSelector((state: RootState) => state.settings).rewardUrl;
 
@@ -26,8 +26,8 @@ const VideoPlayerScreen: React.FC<Props> = ({ }) => {
         className='react-player'
         width='100%'
         height='100%'
-        playing={playing}
-        muted={false}
+        playing={true}
+        muted={playing}
         ref={playerRef}
         onEnded={() => navigate('/')}
       />
