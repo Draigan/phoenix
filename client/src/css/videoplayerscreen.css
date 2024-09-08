@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 .videoplayerscreen-overlay {
@@ -9,5 +10,5 @@
   height: 100%; 
   width: 100%; 
   background: transparent;
-  z-index: 9999; 
+  z-index: 9998; 
 }
