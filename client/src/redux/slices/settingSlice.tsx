@@ -27,7 +27,7 @@ if (fetchFromStorage() === null) {
     maxLetters: 4,
     wordCategory: 'wordsByLength',
     rewardUrl: 'https://www.youtube.com/watch?v=4kRSDTpN18w',
-    pointsToWin: 10,
+    pointsToWin: 30,
   };
   putToStorage(initialState);
 } else {
