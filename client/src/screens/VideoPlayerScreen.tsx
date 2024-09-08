@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
+import { setPointsToWin } from "../redux/slices/settingSlice";
 
 type Props = {
 }
@@ -14,13 +15,20 @@ const VideoPlayerScreen: React.FC<Props> = ({ }) => {
   const navigate = useNavigate();
   const embedUrl = useSelector((state: RootState) => state.settings).rewardUrl;
 
-  // function pause() {
-  //   setPlaying(prev => !prev);
-  // }
+
+
+  const dispatch = useDispatch()
+
 
   return (
     <div className="videoplayerscreen">
-      <div className="overlay-top"></div>
+      <button style={{ zIndex: 9999 }} onClick={() => {
+
+        dispatch(setPointsToWin(5))
+        navigate('/')
+
+      }}> bail out</button>
+      {/* <div className="overlay-top"></div> */}
       <div className="overlay-bottom"></div>
       <div className="overlay-right"></div>
       <div className="overlay-left"></div>
