@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Keyboard from '../components/Keyboard'
 import Points from '../components/Points';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import PracticeDisplay from '../components/PracticeDisplay';
@@ -9,13 +9,17 @@ import AudioIcon from '../components/AudioIcon';
 import NormalDisplay from '../components/NormalDisplay';
 import LongPressButton from '../components/LongPressButton';
 import usePlaySound from '../hooks/usePlaySound';
+import { reset } from '../redux/slices/pointsSlice';
 
 export default function SpellingWord() {
 
   const [input, setInput] = useState('');
   const maxRound = 2;
   const round = useRef(0);
+  const dispatch = useDispatch();
 
+  const points = useSelector((state: RootState) => state.points);
+  const settings = useSelector((state: RootState) => state.settings);
   const words = useSelector((state: RootState) => state.words);
   const currentWord = words.currentWord;
   const navigate = useNavigate();
@@ -45,6 +49,14 @@ export default function SpellingWord() {
     return () => cleanUpSound();
 
   }, [round.current]);
+
+  // Win condition
+  useEffect(() => {
+    if (points === settings.pointsToWin) {
+      dispatch(reset());
+      navigate('/videoplayer');
+    }
+  }, [points])
 
 
 

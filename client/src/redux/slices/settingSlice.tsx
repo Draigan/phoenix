@@ -4,15 +4,35 @@ type SettingsState = {
   maxLetters: number;
   wordCategory: string;
   rewardUrl: string;
-  pointsTowin: number;
+  pointsToWin: number;
 }
 
-const initialState: SettingsState = {
-  maxLetters: 3,
-  wordCategory: 'wordsByLength',
-  rewardUrl: 'https://www.youtube.com/watch?v=4kRSDTpN18w',
-  pointsTowin: 10,
-};
+let initialState: SettingsState;
+
+function fetchFromStorage() {
+  const data = localStorage.getItem('settings');
+  if (data === null) {
+    return null;
+  }
+  const parsed = JSON.parse(data)
+  return parsed;
+}
+function putToStorage(settings: SettingsState) {
+  const data = JSON.stringify(settings);
+  localStorage.setItem('settings', data);
+}
+
+if (fetchFromStorage() === null) {
+  initialState = {
+    maxLetters: 4,
+    wordCategory: 'wordsByLength',
+    rewardUrl: 'https://www.youtube.com/watch?v=4kRSDTpN18w',
+    pointsToWin: 10,
+  };
+  putToStorage(initialState);
+} else {
+  initialState = fetchFromStorage();
+}
 
 const settingsSlice = createSlice({
   name: 'settings',
@@ -20,15 +40,19 @@ const settingsSlice = createSlice({
   reducers: {
     setMaxLetters: (state, action: PayloadAction<{ maxLetters: number }>) => {
       state.maxLetters = action.payload.maxLetters;
+      putToStorage(state);
     },
     setWordCategory: (state, action: PayloadAction<{ wordCategory: string }>) => {
       state.wordCategory = action.payload.wordCategory;
+      putToStorage(state);
     },
     setRewardUrl: (state, action: PayloadAction<{ rewardUrl: string }>) => {
       state.rewardUrl = action.payload.rewardUrl;
+      putToStorage(state);
     },
-    setPointsToWin: (state, action: PayloadAction<{ setPointsToWin: number }>) => {
-      state.pointsTowin = action.payload.setPointsToWin;
+    setPointsToWin: (state, action: PayloadAction<number>) => {
+      state.pointsToWin = action.payload;
+      putToStorage(state);
     },
   },
 });

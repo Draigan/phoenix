@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import usePlaySound from "../hooks/usePlaySound";
+
 type Props = {
   setInput: Dispatch<SetStateAction<string>>;
   input: string;
@@ -10,73 +10,45 @@ type Props = {
 
 const KeyboardEasy: React.FC<Props> = ({ setInput, input, mode }) => {
 
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const preloadedAudios = useRef<HTMLAudioElement[]>([]);
   const word = useSelector((state: RootState) => state.words).currentWord;
   const handleDelete = () => {
     setInput((prevValue) => prevValue.slice(0, prevValue.length - 1));
   };
-  const { playSound } = usePlaySound();
 
-  const handleButtonClick = (letter: string) => {
+  const handleButtonClick = (letter: string, index: number) => {
     if (word.length === input.length) return;
-    // In practice mode we only want to press the next letter
     const expectedLetter = word[input.length];
     if (expectedLetter !== letter && mode === 'practice') return;
-    playSound(`/letters/${letter.toUpperCase()}.wav`);
+    preloadedAudios.current[index].play();
     setInput((prevValue) => `${prevValue}${letter}`);
   };
 
-
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-  // Word mode
-  if (mode === 'practice') {
-    return (
-      <div className="buttons-container">
-        {alphabet.split("").map((letter) => {
-          const expectedLetter = word[input.length];
-          if (expectedLetter !== undefined && letter === expectedLetter) {
-            return (
-              <div
-                className="button"
-                style={{ backgroundColor: "#003747" }}
-                key={letter}
-                onClick={() => handleButtonClick(letter)}
-              >
-                {letter}
-              </div>
-            );
-          } else {
-            return (
-              <div
-                className="button"
-                key={letter}
-                onClick={() => handleButtonClick(letter)}
-              >
-                {letter}
-              </div>
-            );
-          }
-        })}
-        <div
-          className="button"
-          key={0}
-          onClick={handleDelete}
-        >
-          DEL
-        </div>
-
-      </div>
-    );
+  function preloadAudio(url: string) {
+    const audio = new Audio(url);
+    audio.preload = 'auto';
+    return audio;
   }
+
+  useEffect(() => {
+    alphabet.split('').forEach(letter => {
+      const audio = preloadAudio(`/letters/${letter.toUpperCase()}.wav`)
+      preloadedAudios.current.push(audio);
+    });
+
+  }, [])
+
+
   if (mode === 'normal') {
     return (
       <div className="buttons-container">
-        {alphabet.split("").map((letter) => {
+        {alphabet.split("").map((letter, index) => {
           return (
             <div
               className="button"
               key={letter}
-              onClick={() => handleButtonClick(letter)}
+              onClick={() => handleButtonClick(letter, index)}
             >
               {letter}
             </div>

@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "../components/Slider";
-import { setMaxLetters, setRewardUrl, setWordCategory } from "../redux/slices/settingSlice";
+import { setMaxLetters, setPointsToWin, setRewardUrl, setWordCategory } from "../redux/slices/settingSlice";
 import { RootState } from "../redux/store";
 import Dropdown from "../components/Dropdown";
 import React, { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ export default function SettingsScreen() {
   const [changeWord, setChangeWord] = useState(false);
   const { chngWord } = useWordSlice();
   const [rewardValue, setRewardValue] = useState('https://www.youtube.com/watch?v=hIJnxhI_mMc');
-  const [pointsToWinValue, setPointsToWinValue] = useState(0);
+  const [pointsToWinValue, setPointsToWinValue] = useState(settings.pointsToWin);
 
   useEffect(() => {
     const newCategories: string[] = Object.keys(data).map(key => String(key));
@@ -49,7 +49,10 @@ export default function SettingsScreen() {
     dispatch(reset());
   }
   function handlePointsToWin(e: React.ChangeEvent<HTMLInputElement>) {
-    setPointsToWinValue(Number(e.target.value));
+    //Remove leading zeros
+    let value: number = Number(e.target.value.replace(/^0+(?!$)/, ''));
+    setPointsToWinValue(value);
+    dispatch(setPointsToWin(value));
   }
   return (
     <div>
@@ -57,12 +60,16 @@ export default function SettingsScreen() {
       <Dropdown value={settings.wordCategory} label={'Word Category'} options={categories} onChange={handleWordCatChange} />
       {settings.wordCategory === 'wordsByLength' &&
         (<Slider max={7} min={2} step={1} initialValue={settings.maxLetters} onChange={handleChangeMaxWordLength} />)}
-      Set reward video:
-      <input type="text" value={rewardValue} onChange={handleRewardVideo} />
       <br />
       <button onClick={handleResetPoints}>Reset Points</button>
+      <br />
+      Points Needed:
       <input pattern="[0-9]*"
         inputMode="numeric" type="number" value={pointsToWinValue} onChange={handlePointsToWin} />
+      <br />
+      <br />
+      Set reward video:
+      <input type="text" value={rewardValue} onChange={handleRewardVideo} />
     </div>
   )
 }

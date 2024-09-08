@@ -4,6 +4,7 @@ import usePlaySound from '../hooks/usePlaySound';
 
 export default function Points() {
   const points = useSelector((state: RootState) => state.points);
+  const settings = useSelector((state: RootState) => state.settings);
   const { playSound } = usePlaySound();
 
   function getAudioUrl(number: number): string {
@@ -22,7 +23,8 @@ export default function Points() {
 
   return (
     <div className="points" onClick={handleClick}>
-      <p>Points: {points}</p>
+      <p>Points = {points}</p>
+      <p>Win = {settings.pointsToWin}</p>
     </div>
   );
 }
