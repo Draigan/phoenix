@@ -7,18 +7,15 @@ body {
   color: white;
   font-family: "Georgia", serif;
 }
-/* Default link color */
 a {
   color: white;
 }
 
-/* Link color when hovered */
 a:hover {
   color: blue;
 }
 
 
-/* Link color when active (clicked) */
 a:active {
   color: darkblue;
 }

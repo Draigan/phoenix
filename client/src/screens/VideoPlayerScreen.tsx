@@ -20,7 +20,7 @@ const VideoPlayerScreen: React.FC<Props> = ({ }) => {
 
   return (
     <div className="videoplayerscreen">
-      <div className="videoplayerscreen-overlay" onClick={pause}></div>
+      <div className="videoplayerscreen-overlay" onTouchStart={pause} onClick={pause}></div>
       <ReactPlayer
         url={embedUrl}
         className='react-player'

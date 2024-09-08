@@ -9,8 +9,7 @@
   font-size: 1.3em;
   color: darkgrey;
   border: none;
-  cursor: default; /* Sets the cursor to default (not a pointer) */
-  /* Optionally: remove any box-shadow or outline if they are present */
+  cursor: default; 
   box-shadow: none;
   outline: none;
   letter-spacing: 6px;
@@ -26,18 +25,17 @@
   padding-top: 10px;
   border: none;
   user-select: none;
-  pointer-events: none; /* Disables any interactions including hover effects */
-  cursor: default; /* Sets the cursor to default (not a pointer) */
-  /* Optionally: remove any box-shadow or outline if they are present */
+  pointer-events: none; 
+  cursor: default;
   box-shadow: none;
   outline: none;
   letter-spacing: 1px;
 }
 
 .highlight {
-  color: green; /* Change to whatever color you prefer */
-  font-weight: bold; /* Optional: Make it bold */
-  transition: color 0.3s ease-in-out; /* Optional: Smooth transition effect */
+  color: green; 
+  font-weight: bold; 
+  transition: color 0.3s ease-in-out;
 }
 
 @keyframes flashRed {
