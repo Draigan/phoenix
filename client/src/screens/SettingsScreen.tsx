@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "../components/Slider";
 import { setMaxLetters, setPointsToWin, setRewardUrl, setWordCategory } from "../redux/slices/settingSlice";
@@ -48,11 +47,14 @@ export default function SettingsScreen() {
   function handleResetPoints() {
     dispatch(reset());
   }
+
   function handlePointsToWin(e: React.ChangeEvent<HTMLInputElement>) {
-    //Remove leading zeros
-    let value: number = Number(e.target.value.replace(/^0+(?!$)/, ''));
-    setPointsToWinValue(value);
-    dispatch(setPointsToWin(value));
+    const value = e.target.value;
+    // Only allow numbers
+    let filteredValue = Number(value.replace(/[^0-9]/g, ''));
+    setPointsToWinValue(filteredValue);
+    if (filteredValue === 0) filteredValue++;
+    dispatch(setPointsToWin(filteredValue));
   }
   return (
     <div>
@@ -64,8 +66,8 @@ export default function SettingsScreen() {
       <button onClick={handleResetPoints}>Reset Points</button>
       <br />
       Points Needed:
-      <input pattern="[0-9]*"
-        inputMode="numeric" type="number" value={pointsToWinValue} onChange={handlePointsToWin} />
+      <input
+        type="number" value={pointsToWinValue} onChange={handlePointsToWin} />
       <br />
       <br />
       Set reward video:
