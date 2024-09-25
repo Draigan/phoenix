@@ -7,7 +7,6 @@ type DropdownProps = {
   onChange: (value: string) => void;
 }
 
-
 const Dropdown: React.FC<DropdownProps> = ({ value, label, options, onChange }) => {
   return (
     <div>

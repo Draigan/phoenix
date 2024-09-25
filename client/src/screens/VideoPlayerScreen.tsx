@@ -13,10 +13,6 @@ const VideoPlayerScreen: React.FC<Props> = ({ }) => {
   const navigate = useNavigate();
   const embedUrl = useSelector((state: RootState) => state.settings).rewardUrl;
 
-
-
-
-
   return (
     <div className="videoplayerscreen">
       <div className="overlay-top"></div>

@@ -51,7 +51,11 @@ const settingsSlice = createSlice({
       putToStorage(state);
     },
     setPointsToWin: (state, action: PayloadAction<number>) => {
-      state.pointsToWin = action.payload;
+      let value = action.payload
+      if (value === 0) {
+        value = 1;
+      }
+      state.pointsToWin = value;
       putToStorage(state);
     },
   },

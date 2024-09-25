@@ -11,9 +11,9 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <div className='app'>
       <ReactRouter />
-    </>
+    </div>
   )
 }
 

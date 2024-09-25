@@ -1,0 +1,11 @@
+.long-press-button{
+  position: absolute;
+  bottom: 30px;
+  left: 5px;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  cursor: pointer;
+}
+
+

@@ -14,7 +14,6 @@ import { increment } from '../redux/slices/pointsSlice';
 export default function SpellingNormal() {
   const [input, setInput] = useState('');
 
-
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ export default function SpellingNormal() {
 
     }
   }, [input])
-
 
   return (
     <div className='spelling-normal'>

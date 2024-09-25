@@ -32,17 +32,7 @@ const LongPressButton = () => {
       onMouseLeave={clearPressTimer}
       onTouchStart={startPressTimer}
       onTouchEnd={clearPressTimer}
-      style={{
-        position: 'fixed',
-        bottom: '10px',
-        left: '5px',
-        backgroundColor: 'transparent',
-        color: 'white',
-        padding: '10px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-      }}
+      className='long-press-button'
     >
       .
     </button>

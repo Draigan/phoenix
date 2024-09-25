@@ -14,7 +14,7 @@ import { reset } from '../redux/slices/pointsSlice';
 export default function SpellingWord() {
 
   const [input, setInput] = useState('');
-  const maxRound = 2;
+  const maxRound = 1;
   const round = useRef(0);
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ export default function SpellingWord() {
   const navigate = useNavigate();
   const { playSound, cleanUpSound } = usePlaySound();
 
-
+  console.log("from practice", settings.rewardUrl)
   useEffect(() => {
     if (input === currentWord) {
       setTimeout(() => {
@@ -54,11 +54,9 @@ export default function SpellingWord() {
   useEffect(() => {
     if (points === settings.pointsToWin) {
       dispatch(reset());
-      navigate('/videoplayer');
+      // navigate('/videoplayer');
     }
   }, [points])
-
-
 
 
   return (

@@ -1,15 +1,14 @@
 .back-button{
-  position: fixed; 
-  bottom: 10px; 
+  position: absolute; 
+  bottom: 40px; 
   right: 10px; 
   padding: 10px; 
   border-radius: 5px; 
   font-weight: bold;
   z-index: 1000; 
-  width: 7vw;
 }
 .back-button-image {
-  width: 100%;
+  width:30px;
 }
 .back-button-overlay {
   position: fixed;
