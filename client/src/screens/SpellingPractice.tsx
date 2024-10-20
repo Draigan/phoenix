@@ -25,7 +25,6 @@ export default function SpellingWord() {
   const navigate = useNavigate();
   const { playSound, cleanUpSound } = usePlaySound();
 
-  console.log("from practice", settings.rewardUrl)
   useEffect(() => {
     if (input === currentWord) {
       setTimeout(() => {
@@ -37,8 +36,9 @@ export default function SpellingWord() {
     }
   }, [input])
 
+  // End of rounds
   useEffect(() => {
-    if (round.current >= maxRound) {
+    if ((round.current >= maxRound) && (points !== settings.pointsToWin)) {
       navigate('/spellingnormal');
     }
 
@@ -54,7 +54,7 @@ export default function SpellingWord() {
   useEffect(() => {
     if (points === settings.pointsToWin) {
       dispatch(reset());
-      // navigate('/videoplayer');
+      navigate('/videoplayer');
     }
   }, [points])
 

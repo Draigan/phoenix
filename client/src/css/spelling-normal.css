@@ -1,4 +1,6 @@
 .spelling-normal {
+  height: 100%;
+  width: 100%;
   background-color: #282b2d;
   display: flex;
   flex-direction: column;

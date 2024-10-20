@@ -25,7 +25,7 @@ export default function SpellingNormal() {
         setInput('');
         dispatch(increment());
         chngWord();
-        navigate('/')
+        navigate('/');
       }, 2000)
 
     }
