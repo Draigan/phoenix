@@ -13,6 +13,7 @@ import { reset } from '../redux/slices/pointsSlice';
 
 export default function SpellingWord() {
 
+
   const [input, setInput] = useState('');
   const maxRound = 3;
   const round = useRef(0);
