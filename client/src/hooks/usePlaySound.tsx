@@ -3,7 +3,8 @@ import { useCallback, useRef } from 'react'
 const usePlaySound = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const playSound = useCallback((url: string) => {
+  const playSound = useCallback((url: string | undefined) => {
+    if (!url) return;
     if (audioRef.current) {
       audioRef.current.src = url;
     } else {

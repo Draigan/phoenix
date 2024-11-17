@@ -2,16 +2,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { spellOutWord } from '../utils/utils';
 import { useState } from 'react';
+import useSpeech from '../hooks/useSpeech';
 
 const PracticeDisplay = () => {
   const words = useSelector((state: RootState) => state.words)
   const word = words.currentWord;
+  const { audioUrl } = useSpeech(word);
 
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [clickable, setClickable] = useState(true);
   function handleOnClick() {
     if (!clickable) return;
-    const animationDuration = spellOutWord(word, 1000, words.audio, setCurrentIndex);
+    const animationDuration = spellOutWord(word, 1000, audioUrl, setCurrentIndex);
     setClickable(false);
     setTimeout(() => {
       setClickable(true);
