@@ -10,6 +10,7 @@ import NormalDisplay from '../components/NormalDisplay';
 import LongPressButton from '../components/LongPressButton';
 import usePlaySound from '../hooks/usePlaySound';
 import { reset } from '../redux/slices/pointsSlice';
+import useSpeech from '../hooks/useSpeech';
 
 export default function SpellingWord() {
 
@@ -25,6 +26,7 @@ export default function SpellingWord() {
   const currentWord = words.currentWord;
   const navigate = useNavigate();
   const { playSound, cleanUpSound } = usePlaySound();
+  const { audioUrl } = useSpeech(currentWord);
 
   useEffect(() => {
     if (input === currentWord) {
@@ -44,7 +46,7 @@ export default function SpellingWord() {
     }
 
     if (round.current === 0) {
-      playSound(words.audio);
+      playSound(audioUrl);
     }
 
     return () => cleanUpSound();

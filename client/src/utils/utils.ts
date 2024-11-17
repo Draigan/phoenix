@@ -1,5 +1,5 @@
 // Plays audio of all the letters And takes a callback
-export function spellOutWord(word: string, delay: number, audio: string, callback: any) {
+export function spellOutWord(word: string, delay: number, audio: string | undefined, callback: any) {
   word.split('').forEach((letter, index) => {
     setTimeout(() => {
       if (callback) {
