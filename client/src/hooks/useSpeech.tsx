@@ -8,7 +8,7 @@ const useSpeech = (text: string) => {
     const fetchAudio = async () => {
       try {
         const response = await axios.get('https://ec2.draigan.com/phoenix', {
-          params: { text: text },
+          params: { text: text ? text : "testing text" },
           responseType: 'blob', // Important to get the audio file as a Blob
         });
 
