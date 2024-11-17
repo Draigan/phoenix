@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const port = 5000;
+const port = 9999;
 
 function checkFileExists(dir, fileName) {
 	return new Promise((resolve, reject) => {
@@ -19,8 +19,12 @@ function checkFileExists(dir, fileName) {
 	});
 }
 
-// Enable CORS for all origins
-app.use(cors());
+const corsOptions = {
+	origin: 'https://phoenix.draigan.com',
+	optionsSuccessStatus: 200 // For legacy browser support
+};
+
+app.use(cors(corsOptions));
 
 // Create a client
 const client = new textToSpeech.TextToSpeechClient();
