@@ -27,6 +27,7 @@ export const useWordSlice = () => {
     } else {
       const catData = data.data[settings.wordCategory].data;
       const randIndex = randomNumber(catData.length - 1);
+      console.log("catData", catData);
       const item = catData[randIndex];
       dispatch(setToWord({ currentWord: item.word, audio: item.audio, pictures: item.pictures }));
     }

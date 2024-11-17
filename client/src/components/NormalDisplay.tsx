@@ -10,16 +10,20 @@ const NormalDisplay: React.FC<Props> = ({ input }) => {
   const word = useSelector((state: RootState) => state.words).currentWord;
 
   useEffect(() => {
-    if (input.length === word.length && input !== word) {
-      flash.current?.classList.add('flashing-red');
-    } else {
-      flash.current?.classList.remove('flashing-red');
-    }
+    if (word) {
 
-    if (input.length === word.length && input === word) {
-      flash.current?.classList.add('flashing-green');
-    } else {
-      flash.current?.classList.remove('flashing-green');
+      if (input.length === word.length && input !== word) {
+        flash.current?.classList.add('flashing-red');
+      } else {
+        flash.current?.classList.remove('flashing-red');
+      }
+
+      if (input.length === word.length && input === word) {
+        flash.current?.classList.add('flashing-green');
+      } else {
+        flash.current?.classList.remove('flashing-green');
+      }
+
     }
 
   }, [input, word])

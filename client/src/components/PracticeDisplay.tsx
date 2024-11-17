@@ -20,17 +20,20 @@ const PracticeDisplay = () => {
     }, animationDuration)
 
   }
-  return (
-    <button className='practice-display' onClick={handleOnClick}>
-      {word.split('').map((letter, index) => (
-        <span
-          key={index}
-          className={index === currentIndex ? 'highlight' : ''}
-        >
-          {letter}
-        </span>
-      ))}
-    </button>
-  );
+  if (word) {
+    return (
+      <button className='practice-display' onClick={handleOnClick}>
+        {word.split('').map((letter, index) => (
+          <span
+            key={index}
+            className={index === currentIndex ? 'highlight' : ''}
+          >
+            {letter}
+          </span>
+        ))}
+      </button>
+    );
+
+  }
 }
 export default PracticeDisplay;
