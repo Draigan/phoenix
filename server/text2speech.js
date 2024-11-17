@@ -60,7 +60,7 @@ app.get('/phoenix', async (req, res) => {
 	}
 });
 
-app.get('/phoenix', async (req, res) => {
+app.get('/phoenixdata', async (req, res) => {
 	res.json(data);
 });
 
