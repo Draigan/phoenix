@@ -27,7 +27,7 @@ const VideoPlayerScreen: React.FC<Props> = ({ }) => {
         playing={false}
         muted={false}
         ref={playerRef}
-        onEnded={() => navigate('/')}
+        onEnded={() => navigate('/nathansettings')}
       />
     </div>
   )

@@ -5,6 +5,7 @@ import WordImageScreen from './screens/WordImageScreen.tsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import VideoPlayerScreen from './screens/VideoPlayerScreen.tsx';
 import Testing from './screens/Testing.tsx';
+import NathanSettings from './screens/NathanSetting.tsx';
 export default function ReactRouter() {
   return (
     <Router>
@@ -15,6 +16,7 @@ export default function ReactRouter() {
         <Route path="/" element={< SpellingWord />} />
         <Route path="/settings" element={< SettingsScreen />} />
         <Route path="/testing" element={< Testing />} />
+        <Route path="/nathansettings" element={< NathanSettings />} />
       </Routes>
     </Router>
   )

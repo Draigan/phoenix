@@ -23,11 +23,10 @@ export const useWordSlice = () => {
       const wordData = wordsByLength[settings.maxLetters.toString()].data;
       const max = randomNumber(wordData.length - 1);
       const item = wordData[max];
-      dispatch(setToWord({ currentWord: item.word, audio: item.audio, pictures: item.pictures }));
+      dispatch(setToWord({ currentWord: item,  audio: "", pictures: []}));
     } else {
       const catData = data.data[settings.wordCategory].data;
       const randIndex = randomNumber(catData.length - 1);
-      console.log("catData", catData);
       const item = catData[randIndex];
       dispatch(setToWord({ currentWord: item.word, audio: item.audio, pictures: item.pictures }));
     }

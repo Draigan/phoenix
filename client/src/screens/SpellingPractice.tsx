@@ -58,7 +58,8 @@ export default function SpellingWord() {
     if (points === settings.pointsToWin) {
       dispatch(reset());
       navigate('/videoplayer');
-    }
+    } 
+
   }, [points])
 
 

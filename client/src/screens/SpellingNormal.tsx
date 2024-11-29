@@ -15,6 +15,9 @@ export default function SpellingNormal() {
   const [input, setInput] = useState('');
 
   const currentWord = useSelector((state: RootState) => state.words).currentWord;
+  const points = useSelector((state: RootState) => state.points);
+  const pointsToWin = useSelector((state: RootState) => state.settings).pointsToWin;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { chngWord } = useWordSlice();
@@ -25,7 +28,11 @@ export default function SpellingNormal() {
         setInput('');
         dispatch(increment());
         chngWord();
-        navigate('/');
+        if (points % 3 === 0 && points !== pointsToWin){
+        navigate('/nathansettings');
+        }else {
+          navigate('/');
+        }
       }, 2000)
 
     }
