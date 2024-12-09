@@ -21,8 +21,10 @@ const KeyboardEasy: React.FC<Props> = ({ setInput, input, mode }) => {
     if (word.length === input.length) return;
     const expectedLetter = word[input.length];
     if (expectedLetter !== letter && mode === 'practice') return;
-    preloadedAudios.current[index].play();
     setInput((prevValue) => `${prevValue}${letter}`);
+    if (index < 26){
+      preloadedAudios.current[index].play();
+    }
   };
 
   function preloadAudio(url: string) {
@@ -61,6 +63,13 @@ const KeyboardEasy: React.FC<Props> = ({ setInput, input, mode }) => {
           onClick={handleDelete}
         >
           DEL
+        </div>
+        <div
+          className="button-delete"
+          key={0}
+          onClick={() => handleButtonClick("'", 88)}
+        >
+          '
         </div>
 
       </div>
