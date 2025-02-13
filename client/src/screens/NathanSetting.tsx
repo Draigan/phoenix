@@ -15,9 +15,10 @@ export default function NathanSettings() {
   const [changeWord, setChangeWord] = useState(false);
   const { chngWord } = useWordSlice();
 
-  useEffect(()=>{
+
+  useEffect(() => {
     localStorage.setItem("nathansettings", "false");
-  },[])
+  }, [])
 
   useEffect(() => {
     const newCategories: string[] = Object.keys(data).map(key => String(key));
@@ -39,14 +40,25 @@ export default function NathanSettings() {
     dispatch(setWordCategory({ 'wordCategory': e }))
     setChangeWord(true);
   }
-
   return (
     <div>
       <Link onClick={handleBackClick} to="/">BACK</Link>
-      <Dropdown value={settings.wordCategory} label={'Word Category'} options={categories} onChange={handleWordCatChange} />
-      {settings.wordCategory === 'wordsByLength' &&
-        (<Slider max={15} min={1} step={1} initialValue={settings.maxLetters} onChange={handleChangeMaxWordLength} />)}
-    </div>
-  )
-}
+      <Dropdown
+        value={settings.wordCategory}
+        label="Word Category"
+        options={categories}
+        onChange={handleWordCatChange}
+      />
+      {settings.wordCategory === "wordsByLength" && (
+        <Slider
+          max={15}
+          min={1}
+          step={1}
+          initialValue={settings.maxLetters}
+          onChange={handleChangeMaxWordLength}
+        />
+      )}
 
+    </div>
+  );
+}

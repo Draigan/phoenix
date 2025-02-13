@@ -60,7 +60,7 @@ export default function SettingsScreen() {
       <Link onClick={handleBackClick} to="/">BACK</Link>
       <Dropdown value={settings.wordCategory} label={'Word Category'} options={categories} onChange={handleWordCatChange} />
       {settings.wordCategory === 'wordsByLength' &&
-        (<Slider max={15} min={1} step={1} initialValue={settings.maxLetters} onChange={handleChangeMaxWordLength} />)}
+        (<Slider max={8} min={3} step={1} initialValue={settings.maxLetters} onChange={handleChangeMaxWordLength} />)}
       <br />
       <br />
       Points Needed:
