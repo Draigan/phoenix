@@ -12,31 +12,53 @@ const VideoChooserScreen: React.FC<Props> = ({ }) => {
   const videoLinks = ["https://www.youtube.com/watch?v=ly1OUsQ0zN4",
     "https://www.youtube.com/watch?v=4kRSDTpN18w&t=2s",
     "https://www.youtube.com/watch?v=dOz0Es9kNgw&t=2s",
-    "https://www.youtube.com/watch?v=2ZTpEkQD1Fw&t=40s", 
+    "https://www.youtube.com/watch?v=2ZTpEkQD1Fw&t=40s",
     "https://www.youtube.com/watch?v=IPr_Ay-7aT0",
     "https://www.youtube.com/watch?v=KHyhJQ5yXsI",
     "https://www.youtube.com/watch?v=1tbj6cksyA8&t=669s"
-];
+  ];
 
   function handleClick(link: string) {
-      dispatch(setRewardUrl({ rewardUrl: link }));
-      navigate('/videoplayer');
-    }
-return (
+    dispatch(setRewardUrl({ rewardUrl: link }));
+    navigate('/videoplayer');
+  }
+
+  return (
     <div>
       {videoLinks.map((link: string, index: number) => {
         const urlID = link.split("v=")[1]?.substring(0, 11);
         const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
 
         return (
-          <div key={index} onClick={() => handleClick(link)}>
-            <img src={thumbnailUrl} alt="video thumbnail" />
+          <div key={index} style={styles.thumbnailWrapper} onClick={() => handleClick(link)}>
+            <img src={thumbnailUrl} alt="video thumbnail" style={styles.thumbnail} />
           </div>
         );
       })}
     </div>
   );
 
-
 }
 export default VideoChooserScreen;
+
+  const styles = {
+    scrollContainer: {
+      display: "flex",
+      overflowY: "auto", // Horizontal scrolling
+      whiteSpace: "nowrap",
+      gap: "10px",
+      padding: "10px",
+      border: "1px solid #ddd", // Optional styling
+      borderRadius: "10px",
+    },
+    thumbnailWrapper: {
+      cursor: "pointer",
+      flex: "0 0 auto", // Prevents flex items from stretching
+    },
+    thumbnail: {
+      width: "160px", // Adjust size
+      height: "90px",
+      borderRadius: "5px",
+      transition: "transform 0.2s ease-in-out",
+    },
+  };
