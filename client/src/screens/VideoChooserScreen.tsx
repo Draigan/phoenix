@@ -1,15 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setRewardUrl } from "../redux/slices/settingSlice";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-type Props = {
-}
-
-const VideoChooserScreen: React.FC<Props> = ({ }) => {
-
+const VideoChooserScreen: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const videoLinks = ["https://www.youtube.com/watch?v=ly1OUsQ0zN4",
+  const videoLinks = [
+    "https://www.youtube.com/watch?v=ly1OUsQ0zN4",
     "https://www.youtube.com/watch?v=qOfrV66OpDM",
     "https://www.youtube.com/watch?v=4kRSDTpN18w&t=2s",
     "https://www.youtube.com/watch?v=dOz0Es9kNgw&t=2s",
@@ -21,45 +20,58 @@ const VideoChooserScreen: React.FC<Props> = ({ }) => {
 
   function handleClick(link: string) {
     dispatch(setRewardUrl({ rewardUrl: link }));
-    navigate('/videoplayer');
+    navigate("/videoplayer");
   }
 
-  return (
-    <div>
-      {videoLinks.map((link: string, index: number) => {
-        const urlID = link.split("v=")[1]?.substring(0, 11);
-        const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
+  const responsive = {
+    superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
+    desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
+    tablet: { breakpoint: { max: 1024, min: 464 }, items: 2 },
+    mobile: { breakpoint: { max: 464, min: 0 }, items: 1 },
+  };
 
-        return (
-          <div key={index} style={styles.thumbnailWrapper} onClick={() => handleClick(link)}>
-            <img src={thumbnailUrl} alt="video thumbnail" style={styles.thumbnail} />
-          </div>
-        );
-      })}
+  return (
+    <div style={styles.container}>
+      <Carousel responsive={responsive} containerClass="carousel-container">
+        {videoLinks.map((link, index) => {
+          const urlID = link.split("v=")[1]?.substring(0, 11);
+          const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
+
+          return (
+            <div key={index} style={styles.thumbnailWrapper} onClick={() => handleClick(link)}>
+              <img src={thumbnailUrl} alt="video thumbnail" style={styles.thumbnail} />
+            </div>
+          );
+        })}
+      </Carousel>
     </div>
   );
+};
 
-}
 export default VideoChooserScreen;
 
 const styles = {
-  scrollContainer: {
+  container: {
+    width: "100vw",
+    height: "100vh",
     display: "flex",
-    overflowY: "auto", // Horizontal scrolling
-    whiteSpace: "nowrap",
-    gap: "10px",
-    padding: "10px",
-    border: "1px solid #ddd", // Optional styling
-    borderRadius: "10px",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000", // Optional: Black background for better contrast
   },
   thumbnailWrapper: {
     cursor: "pointer",
-    flex: "0 0 auto", // Prevents flex items from stretching
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px",
   },
   thumbnail: {
-    width: "160px", // Adjust size
-    height: "90px",
-    borderRadius: "5px",
+    width: "100%", // Make images scale with the screen
+    maxWidth: "300px", // Keep a max width for better readability
+    height: "auto",
+    borderRadius: "10px",
     transition: "transform 0.2s ease-in-out",
   },
 };
+
