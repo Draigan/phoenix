@@ -31,26 +31,38 @@ const VideoChooserScreen: React.FC = () => {
   };
 
   return (
-    <div>
-      <Carousel responsive={responsive}>
-        {videoLinks.map((link, index) => {
-          const urlID = link.split("v=")[1]?.substring(0, 11);
-          const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
+<div style={styles.carouselContainer}>
+  <Carousel 
+    responsive={responsive} 
+    containerClass="carousel-container"
+    itemClass="carousel-item"
+  >
+    {videoLinks.map((link, index) => {
+      const urlID = link.split("v=")[1]?.substring(0, 11);
+      const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
 
-          return (
-            <div key={index} style={styles.thumbnailWrapper} onClick={() => handleClick(link)}>
-              <img src={thumbnailUrl} alt="video thumbnail" style={styles.thumbnail} />
-            </div>
-          );
-        })}
-      </Carousel>
-    </div>
+      return (
+        <div key={index} style={styles.thumbnailWrapper} onClick={() => handleClick(link)}>
+          <img src={thumbnailUrl} alt="video thumbnail" style={styles.thumbnail} />
+        </div>
+      );
+    })}
+  </Carousel>
+</div>
   );
 };
 
 export default VideoChooserScreen;
 
 const styles = {
+carouselContainer: {
+    width: "100vw",
+    height: "100vh",  // Full viewport height
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000", // Optional for contrast
+  },
   thumbnailWrapper: {
     cursor: "pointer",
     padding: "10px",
@@ -58,8 +70,8 @@ const styles = {
     justifyContent: "center",
   },
   thumbnail: {
-    width: "160px",
-    height: "90px",
+    width: "260px",
+    height: "190px",
     borderRadius: "5px",
     transition: "transform 0.2s ease-in-out",
   },
