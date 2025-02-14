@@ -29,7 +29,7 @@ export default function SpellingNormal() {
         dispatch(increment());
         chngWord();
         if (points % 3 === 0 && points !== pointsToWin){
-        navigate('/videochooser');
+        navigate('/nathansettings');
         }else {
           navigate('/');
         }

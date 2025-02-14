@@ -57,7 +57,7 @@ export default function SpellingWord() {
   useEffect(() => {
     if (points === settings.pointsToWin) {
       dispatch(reset());
-      navigate('/videoplayer');
+      navigate('/videochooser');
     } 
 
   }, [points])
