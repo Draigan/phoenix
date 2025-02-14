@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setRewardUrl } from "../redux/slices/settingSlice";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const VideoChooserScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const VideoChooserScreen: React.FC = () => {
 
   function handleClick(link: string) {
     dispatch(setRewardUrl({ rewardUrl: link }));
-    navigate("/videoplayer");
+    navigate('/videoplayer');
   }
 
   const responsive = {
@@ -31,8 +31,8 @@ const VideoChooserScreen: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <Carousel responsive={responsive} containerClass="carousel-container">
+    <div>
+      <Carousel responsive={responsive}>
         {videoLinks.map((link, index) => {
           const urlID = link.split("v=")[1]?.substring(0, 11);
           const thumbnailUrl = `https://img.youtube.com/vi/${urlID}/hqdefault.jpg`;
@@ -51,26 +51,16 @@ const VideoChooserScreen: React.FC = () => {
 export default VideoChooserScreen;
 
 const styles = {
-  container: {
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#000", // Optional: Black background for better contrast
-  },
   thumbnailWrapper: {
     cursor: "pointer",
+    padding: "10px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    padding: "10px",
   },
   thumbnail: {
-    width: "100%", // Make images scale with the screen
-    maxWidth: "300px", // Keep a max width for better readability
-    height: "auto",
-    borderRadius: "10px",
+    width: "160px",
+    height: "90px",
+    borderRadius: "5px",
     transition: "transform 0.2s ease-in-out",
   },
 };
