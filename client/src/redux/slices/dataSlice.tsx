@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const backendURL = 'https://enzo.draigan.com/phoenix';
+const backendURL = 'https://enzo.draigan.com/phoenixdata';
 
 type DataItem = {
   data: {
